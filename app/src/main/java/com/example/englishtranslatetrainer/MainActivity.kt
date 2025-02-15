@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
             EnglishTranslateTrainerTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Surface(modifier = Modifier.padding(innerPadding)) {
-                        Main()
+                        AppNavigation()
                     }
                 }
             }
@@ -32,10 +32,10 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@Composable
-fun Main() {
-    Scaffold {
-        HomeScreen()
-    }
-}
+//@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+//@Composable
+//fun Main() {
+//    Scaffold {
+//        HomeScreen(navController = )
+//    }
+//}
