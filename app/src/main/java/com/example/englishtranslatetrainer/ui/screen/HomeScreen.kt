@@ -29,6 +29,7 @@ fun HomeScreen(navController: NavController) {
         ElementButton("Add Sentence") {
             navController.navigate("add_sentence")
         }
+        Spacer(Modifier.height(20.dp))
     }
 }
 

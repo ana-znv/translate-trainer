@@ -18,6 +18,6 @@ fun AppNavigation() {
     ) {
         composable("home") { HomeScreen(navController) }
         composable("training") { TrainingScreen() }
-        composable("add_sentence") { AddSentenceScreen() }
+        composable("add_sentence") { AddSentenceScreen(navController) }
     }
 }
