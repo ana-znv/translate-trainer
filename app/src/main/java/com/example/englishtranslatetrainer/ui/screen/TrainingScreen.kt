@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 
 @Composable
 fun TrainingScreen() {
-    Column {
-        Text("fsdkfsd3222l")
-    }
+   Column {
+      Text("fsdkfsd3222l")
+   }
 }

@@ -17,48 +17,48 @@ import androidx.navigation.NavController
 
 @Composable
 fun HomeScreen(navController: NavController) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 20.dp),
-    ) {
-        ElementButton("Start Training") {
-            navController.navigate("training")
-        }
-        Spacer(Modifier.height(30.dp))
-        ElementButton("Add Sentence") {
-            navController.navigate("add_sentence")
-        }
-        Spacer(Modifier.height(20.dp))
-    }
+   Column(
+      modifier = Modifier
+          .fillMaxWidth()
+          .padding(top = 20.dp),
+   ) {
+      ElementButton("Start Training") {
+         navController.navigate("training")
+      }
+      Spacer(Modifier.height(30.dp))
+      ElementButton("Add Sentence") {
+         navController.navigate("add_sentence")
+      }
+      Spacer(Modifier.height(20.dp))
+   }
 }
 
 @Composable
 fun ElementButton(content: String, onClick: () -> Unit) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(100.dp)
-            .padding(horizontal = 20.dp)
-            .clickable {
-                onClick()
-            },
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 6.dp
-        ),
-        shape = RoundedCornerShape(20.dp),
-    ) {
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center,
-        ) {
-            Text(
-                text = content,
-                style = TextStyle(
-                    fontSize = 40.sp,
-                    fontWeight = FontWeight.Medium
-                )
+   Card(
+      modifier = Modifier
+          .fillMaxWidth()
+          .height(100.dp)
+          .padding(horizontal = 20.dp)
+          .clickable {
+              onClick()
+          },
+      elevation = CardDefaults.cardElevation(
+         defaultElevation = 6.dp
+      ),
+      shape = RoundedCornerShape(20.dp),
+   ) {
+      Box(
+         modifier = Modifier.fillMaxSize(),
+         contentAlignment = Alignment.Center,
+      ) {
+         Text(
+            text = content,
+            style = TextStyle(
+               fontSize = 40.sp,
+               fontWeight = FontWeight.Medium
             )
-        }
-    }
+         )
+      }
+   }
 }

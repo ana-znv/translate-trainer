@@ -10,14 +10,14 @@ import com.example.englishtranslatetrainer.ui.screen.TrainingScreen
 
 @Composable
 fun AppNavigation() {
-    val navController = rememberNavController()
+   val navController = rememberNavController()
 
-    NavHost(
-        navController = navController,
-        startDestination = "home"
-    ) {
-        composable("home") { HomeScreen(navController) }
-        composable("training") { TrainingScreen() }
-        composable("add_sentence") { AddSentenceScreen(navController) }
-    }
+   NavHost(
+      navController = navController,
+      startDestination = "home"
+   ) {
+      composable("home") { HomeScreen(navController) }
+      composable("training") { TrainingScreen() }
+      composable("add_sentence") { AddSentenceScreen(navController) }
+   }
 }

@@ -21,20 +21,21 @@ import com.example.englishtranslatetrainer.ui.screen.HomeScreen
 import com.example.englishtranslatetrainer.ui.theme.EnglishTranslateTrainerTheme
 
 class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            EnglishTranslateTrainerTheme {
-                Scaffold(
-                    modifier = Modifier.fillMaxSize()
-                        .statusBarsPadding(),
-                ) { innerPadding ->
-                    Surface(modifier = Modifier.padding(innerPadding)) {
-                        AppNavigation()
-                    }
-                }
+   override fun onCreate(savedInstanceState: Bundle?) {
+      super.onCreate(savedInstanceState)
+      enableEdgeToEdge()
+      setContent {
+         EnglishTranslateTrainerTheme {
+            Scaffold(
+               modifier = Modifier
+                   .fillMaxSize()
+                   .statusBarsPadding(),
+            ) { innerPadding ->
+               Surface(modifier = Modifier.padding(innerPadding)) {
+                  AppNavigation()
+               }
             }
-        }
-    }
+         }
+      }
+   }
 }
