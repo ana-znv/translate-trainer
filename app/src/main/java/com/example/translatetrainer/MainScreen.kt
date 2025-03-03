@@ -1,6 +1,7 @@
 package com.example.translatetrainer
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,24 +19,29 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun MainScreen() {
+fun MainScreen(navController: NavController) {
     Column {
-        MainElements("Start training")
-        MainElements("Add Sentence")
+        MainElements("Start training", navController, "start")
+        MainElements("Add Sentence", navController, "add_sentence")
     }
 }
 
 @Composable
-fun MainElements(text: String) {
+fun MainElements(text: String, navController: NavController, screenRoute: String) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
             .clip(RoundedCornerShape(16.dp))
             .background(MaterialTheme.colorScheme.primary)
-            .height(80.dp),
+            .height(80.dp)
+            .clickable {
+                navController.navigate(screenRoute)
+            },
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
