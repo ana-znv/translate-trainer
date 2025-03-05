@@ -24,8 +24,9 @@ import androidx.navigation.NavController
 @Composable
 fun MainScreen(navController: NavController) {
     Column {
-        MainElements("Start training", navController, "start")
+        MainElements("Start Training", navController, "start")
         MainElements("Add Sentence", navController, "add_sentence")
+        MainElements("View All Sentences", navController, "all_sentences")
     }
 }
 

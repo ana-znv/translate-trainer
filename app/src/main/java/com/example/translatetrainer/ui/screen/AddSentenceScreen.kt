@@ -33,7 +33,7 @@ import com.example.translatetrainer.data.SentenceViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddSentenceScreen(navController: NavController ,viewModel: SentenceViewModel) {
+fun AddSentenceScreen(navController: NavController, viewModel: SentenceViewModel) {
 
     var nativeText by remember {
         mutableStateOf("")
@@ -60,7 +60,8 @@ fun AddSentenceScreen(navController: NavController ,viewModel: SentenceViewModel
                     }
                 },
                 title = {
-                    Text(text = "Add Sentence",
+                    Text(
+                        text = "Add Sentence",
                         color = Color(0xFFE7E7E7),
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Medium
