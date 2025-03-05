@@ -20,7 +20,7 @@ fun NavController(viewModel: SentenceViewModel) {
     ) {
         composable("home") { MainScreen(navController) }
         composable("add_sentence") { AddSentenceScreen(navController, viewModel) }
-        composable("start") { StartTraining(navController) }
+        composable("start") { StartTraining(navController, viewModel) }
         composable("all_sentences") { AllSentences(navController, viewModel) }
     }
 }
