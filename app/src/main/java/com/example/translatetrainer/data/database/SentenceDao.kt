@@ -2,6 +2,7 @@ package com.example.translatetrainer.data.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.example.translatetrainer.data.Sentence
@@ -13,4 +14,8 @@ interface SentenceDao {
 
     @Insert
     fun addSentence(sentence: Sentence)
+
+    @Query("DELETE FROM Sentence WHERE id = :id")
+    fun deleteSentence(id: Int)
+
 }

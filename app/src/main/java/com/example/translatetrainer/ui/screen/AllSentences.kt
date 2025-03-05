@@ -9,6 +9,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -38,7 +42,11 @@ fun AllSentences(viewModel: SentenceViewModel) {
             LazyColumn(
                 content = {
                     itemsIndexed(it) { index, item ->
-                        SentenceItem(item = item)
+                        SentenceItem(item = item,
+                            onDelete = {
+                                viewModel.deleteSentence(item.id)
+                            }
+                        )
                     }
                 }
             )
@@ -47,7 +55,7 @@ fun AllSentences(viewModel: SentenceViewModel) {
 }
 
 @Composable
-fun SentenceItem(item: Sentence) {
+fun SentenceItem(item: Sentence, onDelete: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -75,6 +83,15 @@ fun SentenceItem(item: Sentence) {
                 text = "Foreign: " + item.foreign,
                 fontSize = 20.sp,
                 color = Color.White
+            )
+        }
+        IconButton(
+            onClick = onDelete
+        ) {
+            Icon(
+                imageVector = Icons.Default.Delete,
+                contentDescription = "Delete",
+                tint = Color.LightGray
             )
         }
     }

@@ -3,6 +3,7 @@ package com.example.translatetrainer.data
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.translatetrainer.MainApplication
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,11 +18,19 @@ class SentenceViewModel : ViewModel() {
 
     fun addSentence(native: String, foreign: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            sentenceDao.addSentence(Sentence(
-                native = native,
-                foreign = foreign,
-                createdAt = Date.from(Instant.now())
-            ))
+            sentenceDao.addSentence(
+                Sentence(
+                    native = native,
+                    foreign = foreign,
+                    createdAt = Date.from(Instant.now())
+                )
+            )
+        }
+    }
+
+    fun deleteSentence(id: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            sentenceDao.deleteSentence(id)
         }
     }
 }
