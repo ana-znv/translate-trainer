@@ -21,6 +21,6 @@ fun NavController(viewModel: SentenceViewModel) {
         composable("home") { MainScreen(navController) }
         composable("add_sentence") { AddSentenceScreen(navController, viewModel) }
         composable("start") { StartTraining(navController) }
-        composable("all_sentences") { AllSentences(viewModel) }
+        composable("all_sentences") { AllSentences(navController, viewModel) }
     }
 }
