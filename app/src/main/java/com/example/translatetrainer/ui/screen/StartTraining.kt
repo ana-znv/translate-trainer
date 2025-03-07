@@ -1,32 +1,58 @@
 package com.example.translatetrainer.ui.screen
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.translatetrainer.data.SentenceViewModel
+import kotlin.random.Random
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StartTraining(navController: NavController, viewModel: SentenceViewModel) {
+    val sentenceList by viewModel.sentenceList.observeAsState()
+    val randomElement = sentenceList?.random()
+    var answer by remember {
+        mutableStateOf("")
+    }
+
+    var result by remember {
+        mutableStateOf("")
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
+                modifier = Modifier.padding(bottom = 15.dp),
                 navigationIcon = {
                     IconButton(
                         onClick = {
@@ -42,7 +68,7 @@ fun StartTraining(navController: NavController, viewModel: SentenceViewModel) {
                 },
                 title = {
                     Text(
-                        text = "Sentences",
+                        text = "Train",
                         color = Color(0xFFE7E7E7),
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Medium
@@ -56,9 +82,52 @@ fun StartTraining(navController: NavController, viewModel: SentenceViewModel) {
         }
     ) { innerPadding ->
         Column(
-            modifier = Modifier.padding(innerPadding)
+            modifier = Modifier
+                .padding(innerPadding)
+                .fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
+            Box(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(15.dp))
+                    .background(MaterialTheme.colorScheme.primary)
+                    .padding(16.dp)
+            ) {
+                randomElement?.let {
+                    Text(
+                        text = it.native,
+                        color = Color.White,
+                        fontSize = 16.sp
+                    )
+                }
+            }
+            OutlinedTextField(
+                value = answer,
+                onValueChange = {
+                    answer = it
+                },
+                label = {
+                    Text(text = "Your answer",
+                        color = Color.White,
+                        fontSize = 16.sp)
+                },
+                modifier = Modifier
+                    .padding(16.dp)
+                    .fillMaxWidth()
+            )
+            Button(onClick = {
+                if (randomElement != null) {
+                    result = if (randomElement.foreign == answer) {
+                        "You're right!"
+                    } else {
+                        "You're made a mistake!"
+                    }
+                }
+            }
+            ) {
+                Text(text = "Compare")
+            }
+            Text(text = result)
         }
     }
 }
