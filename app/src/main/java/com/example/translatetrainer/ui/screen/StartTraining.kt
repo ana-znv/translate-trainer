@@ -108,7 +108,6 @@ fun StartTraining(navController: NavController, viewModel: SentenceViewModel) {
                 },
                 label = {
                     Text(text = "Your answer",
-                        color = Color.White,
                         fontSize = 16.sp)
                 },
                 modifier = Modifier
@@ -117,10 +116,12 @@ fun StartTraining(navController: NavController, viewModel: SentenceViewModel) {
             )
             Button(onClick = {
                 if (randomElement != null) {
-                    result = if (randomElement.foreign == answer) {
-                        "You're right!"
+                    if (randomElement.foreign == answer) {
+                        result = "You're right!"
+                        viewModel.deleteSentence(randomElement.id)
+                        answer = ""
                     } else {
-                        "You're made a mistake!"
+                        result = "You're made a mistake!"
                     }
                 }
             }
