@@ -19,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -33,20 +34,28 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.translatetrainer.data.Sentence
 import com.example.translatetrainer.data.SentenceViewModel
+import java.util.Date
 import kotlin.random.Random
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StartTraining(navController: NavController, viewModel: SentenceViewModel) {
     val sentenceList by viewModel.sentenceList.observeAsState()
-    val randomElement = sentenceList?.random()
+    var randomElement by remember {
+        mutableStateOf<Sentence?>(null)
+    }
     var answer by remember {
         mutableStateOf("")
     }
 
     var result by remember {
         mutableStateOf("")
+    }
+
+    LaunchedEffect(sentenceList) {
+        randomElement =sentenceList?.takeIf { it.isNotEmpty() }?.random()
     }
 
     Scaffold(
@@ -81,54 +90,64 @@ fun StartTraining(navController: NavController, viewModel: SentenceViewModel) {
             )
         }
     ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .padding(innerPadding)
-                .fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Box(
+        if (randomElement != null) {
+            Column(
                 modifier = Modifier
-                    .clip(RoundedCornerShape(15.dp))
-                    .background(MaterialTheme.colorScheme.primary)
-                    .padding(16.dp)
+                    .padding(innerPadding)
+                    .fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                randomElement?.let {
-                    Text(
-                        text = it.native,
-                        color = Color.White,
-                        fontSize = 16.sp
-                    )
-                }
-            }
-            OutlinedTextField(
-                value = answer,
-                onValueChange = {
-                    answer = it
-                },
-                label = {
-                    Text(text = "Your answer",
-                        fontSize = 16.sp)
-                },
-                modifier = Modifier
-                    .padding(16.dp)
-                    .fillMaxWidth()
-            )
-            Button(onClick = {
-                if (randomElement != null) {
-                    if (randomElement.foreign == answer) {
-                        result = "You're right!"
-                        viewModel.deleteSentence(randomElement.id)
-                        answer = ""
-                    } else {
-                        result = "You're made a mistake!"
+                Box(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(15.dp))
+                        .background(MaterialTheme.colorScheme.primary)
+                        .padding(16.dp)
+                ) {
+                    randomElement?.let {
+                        Text(
+                            text = it.native,
+                            color = Color.White,
+                            fontSize = 16.sp
+                        )
                     }
                 }
+                OutlinedTextField(
+                    value = answer,
+                    onValueChange = {
+                        answer = it
+                    },
+                    label = {
+                        Text(
+                            text = "Your answer",
+                            fontSize = 16.sp
+                        )
+                    },
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .fillMaxWidth()
+                )
+                Button(onClick = {
+                    if (randomElement != null) {
+                        if (randomElement!!.foreign == answer) {
+                            result = "You're right!"
+                            viewModel.deleteSentence(randomElement!!.id)
+                            answer = ""
+                        } else {
+                            result = "You're made a mistake!"
+                            answer = ""
+                            randomElement = sentenceList?.takeIf { it.isNotEmpty() }?.random()
+                        }
+                    }
+                }
+                ) {
+                    Text(text = "Compare")
+                }
+                Text(text = result)
             }
-            ) {
-                Text(text = "Compare")
-            }
-            Text(text = result)
+        } else {
+            Text(
+                text = "You do not have sentences yet"
+            )
         }
     }
 }
