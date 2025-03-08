@@ -77,18 +77,22 @@ fun AllSentences(navController: NavController, viewModel: SentenceViewModel) {
                 .fillMaxHeight()
                 .padding(innerPadding)
         ) {
-            sentenceList?.let {
-                LazyColumn(
-                    content = {
-                        itemsIndexed(it) { index, item ->
-                            SentenceItem(item = item,
-                                onDelete = {
-                                    viewModel.deleteSentence(item.id)
-                                }
-                            )
+            if (sentenceList.isNullOrEmpty()) {
+                Text(text = "You don't have any sentence")
+            } else {
+                sentenceList?.let {
+                    LazyColumn(
+                        content = {
+                            itemsIndexed(it) { index, item ->
+                                SentenceItem(item = item,
+                                    onDelete = {
+                                        viewModel.deleteSentence(item.id)
+                                    }
+                                )
+                            }
                         }
-                    }
-                )
+                    )
+                }
             }
         }
     }
