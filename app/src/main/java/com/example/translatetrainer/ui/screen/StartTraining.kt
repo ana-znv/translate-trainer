@@ -32,16 +32,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.translatetrainer.data.Sentence
 import com.example.translatetrainer.data.SentenceViewModel
-import java.util.Date
-import kotlin.random.Random
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun StartTraining(navController: NavController, viewModel: SentenceViewModel) {
+fun StartTraining(navController: NavHostController, viewModel: SentenceViewModel) {
     val sentenceList by viewModel.sentenceList.observeAsState()
     var randomElement by remember {
         mutableStateOf<Sentence?>(null)

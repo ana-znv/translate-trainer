@@ -19,10 +19,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 
 @Composable
-fun MainScreen(navController: NavController) {
+fun MainScreen(navController: NavHostController) {
     Column {
         MainElements("Start Training", navController, "start")
         MainElements("Add Sentence", navController, "add_sentence")
@@ -31,7 +31,7 @@ fun MainScreen(navController: NavController) {
 }
 
 @Composable
-fun MainElements(text: String, navController: NavController, screenRoute: String) {
+fun MainElements(text: String, navController: NavHostController, screenRoute: String) {
     Row(
         modifier = Modifier
             .fillMaxWidth()

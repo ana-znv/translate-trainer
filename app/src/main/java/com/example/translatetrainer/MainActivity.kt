@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.rememberNavController
 import com.example.translatetrainer.data.SentenceViewModel
 import com.example.translatetrainer.ui.theme.TranslateTrainerTheme
 
@@ -19,10 +20,16 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             TranslateTrainerTheme {
-                Scaffold(modifier = Modifier.fillMaxSize().statusBarsPadding()) { innerPadding ->
+                val navController = rememberNavController()
+                Scaffold(modifier = Modifier
+                    .fillMaxSize()
+                    .statusBarsPadding(),
+                    bottomBar = {
+                        BottomNavigationBar(navController = navController)
+                    }) { innerPadding ->
                     Surface(modifier = Modifier.padding(innerPadding)) {
                         val viewModel = SentenceViewModel()
-                        NavController(viewModel)
+                        NavController(navController,viewModel)
                     }
                 }
             }

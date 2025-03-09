@@ -28,12 +28,12 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.translatetrainer.data.SentenceViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddSentenceScreen(navController: NavController, viewModel: SentenceViewModel) {
+fun AddSentenceScreen(navController: NavHostController, viewModel: SentenceViewModel) {
 
     var nativeText by remember {
         mutableStateOf("")

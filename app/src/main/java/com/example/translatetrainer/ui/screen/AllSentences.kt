@@ -30,7 +30,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.translatetrainer.data.Sentence
 import com.example.translatetrainer.data.SentenceViewModel
 import java.text.SimpleDateFormat
@@ -38,7 +38,7 @@ import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AllSentences(navController: NavController, viewModel: SentenceViewModel) {
+fun AllSentences(navController: NavHostController, viewModel: SentenceViewModel) {
     val sentenceList by viewModel.sentenceList.observeAsState()
 
     Scaffold(
@@ -83,7 +83,7 @@ fun AllSentences(navController: NavController, viewModel: SentenceViewModel) {
                 sentenceList?.let {
                     LazyColumn(
                         content = {
-                            itemsIndexed(it) { index, item ->
+                            itemsIndexed(it) { _, item ->
                                 SentenceItem(item = item,
                                     onDelete = {
                                         viewModel.deleteSentence(item.id)
