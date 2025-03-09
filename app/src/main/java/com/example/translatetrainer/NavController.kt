@@ -66,7 +66,7 @@ fun NavController(navController: NavHostController ,viewModel: SentenceViewModel
         navController = navController,
         startDestination = Screen.Home.route
     ) {
-        composable(Screen.Home.route) { MainScreen(navController) }
+        composable(Screen.Home.route) { MainScreen(viewModel) }
         composable(Screen.AddSentence.route) { AddSentenceScreen(navController, viewModel) }
         composable(Screen.Start.route) { StartTraining(navController, viewModel) }
         composable(Screen.AllSentences.route) { AllSentences(navController, viewModel) }
