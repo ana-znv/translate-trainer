@@ -1,8 +1,11 @@
 package com.example.translatetrainer.ui.screen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -26,40 +29,53 @@ fun MainScreen(viewModel: SentenceViewModel) {
     val sentenceList by viewModel.sentenceList.observeAsState()
 
     Row(
+        verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .padding(16.dp)
-            .fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically
+            .fillMaxWidth()
     ) {
         ElevatedCard(
             modifier = Modifier
                 .clip(RoundedCornerShape(15.dp))
-                .fillMaxWidth(0.45f),
+                .fillMaxWidth(0.5f)
+                .align(Alignment.CenterVertically),
             elevation = CardDefaults.cardElevation(
                 defaultElevation = 10.dp
             )
         ) {
-            Text(
-                text = "Count of sentence:\n" + sentenceList?.size,
+            Box(
                 modifier = Modifier
-                    .padding(15.dp),
-                textAlign = TextAlign.Center
-            )
+                    .fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "Count of sentence:\n" + sentenceList?.size,
+                    modifier = Modifier
+                        .padding(15.dp),
+                    textAlign = TextAlign.Center
+                )
+            }
         }
         Spacer(modifier = Modifier.padding(horizontal = 8.dp))
         ElevatedCard(
             modifier = Modifier
-                .clip(RoundedCornerShape(15.dp)),
+                .clip(RoundedCornerShape(15.dp))
+                .fillMaxWidth(),
             elevation = CardDefaults.cardElevation(
                 defaultElevation = 10.dp
             )
         ) {
-            Text(
-                text = "You solved:\n$solved",
-                modifier = Modifier
-                    .padding(15.dp),
-                textAlign = TextAlign.Center
-            )
+            Box(modifier = Modifier
+                .fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "Solved today:\n$solved",
+                    modifier = Modifier
+                        .padding(15.dp),
+                    textAlign = TextAlign.Center
+                )
+            }
         }
     }
 }
