@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.translatetrainer.data.Sentence
 import com.example.translatetrainer.data.SentenceViewModel
+import com.example.translatetrainer.ui.theme.AppTheme
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -41,57 +42,59 @@ import java.util.Locale
 fun AllSentences(navController: NavHostController, viewModel: SentenceViewModel) {
     val sentenceList by viewModel.sentenceList.observeAsState()
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                navigationIcon = {
-                    IconButton(
-                        onClick = {
-                            navController.popBackStack()
+    AppTheme {
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    navigationIcon = {
+                        IconButton(
+                            onClick = {
+                                navController.popBackStack()
+                            }
+                        ) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                contentDescription = "Get back",
+                                tint = Color(0xFFE7E7E7)
+                            )
                         }
-                    ) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Get back",
-                            tint = Color(0xFFE7E7E7)
+                    },
+                    title = {
+                        Text(
+                            text = "Sentences",
+                            color = Color(0xFFE7E7E7),
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Medium
+                        )
+                    },
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        titleContentColor = MaterialTheme.colorScheme.primary,
+                    )
+                )
+            }
+        ) { innerPadding ->
+            Column(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .padding(innerPadding)
+            ) {
+                if (sentenceList.isNullOrEmpty()) {
+                    Text(text = "You don't have any sentence")
+                } else {
+                    sentenceList?.let {
+                        LazyColumn(
+                            content = {
+                                itemsIndexed(it) { _, item ->
+                                    SentenceItem(item = item,
+                                        onDelete = {
+                                            viewModel.deleteSentence(item.id)
+                                        }
+                                    )
+                                }
+                            }
                         )
                     }
-                },
-                title = {
-                    Text(
-                        text = "Sentences",
-                        color = Color(0xFFE7E7E7),
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Medium
-                    )
-                },
-                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    titleContentColor = MaterialTheme.colorScheme.primary,
-                )
-            )
-        }
-    ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .fillMaxHeight()
-                .padding(innerPadding)
-        ) {
-            if (sentenceList.isNullOrEmpty()) {
-                Text(text = "You don't have any sentence")
-            } else {
-                sentenceList?.let {
-                    LazyColumn(
-                        content = {
-                            itemsIndexed(it) { _, item ->
-                                SentenceItem(item = item,
-                                    onDelete = {
-                                        viewModel.deleteSentence(item.id)
-                                    }
-                                )
-                            }
-                        }
-                    )
                 }
             }
         }

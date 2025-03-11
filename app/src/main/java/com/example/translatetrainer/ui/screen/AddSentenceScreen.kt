@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.translatetrainer.data.SentenceViewModel
+import com.example.translatetrainer.ui.theme.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -43,92 +44,93 @@ fun AddSentenceScreen(navController: NavHostController, viewModel: SentenceViewM
         mutableStateOf("")
     }
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                navigationIcon = {
-                    IconButton(
-                        onClick = {
-                            navController.popBackStack()
+    AppTheme {
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    navigationIcon = {
+                        IconButton(
+                            onClick = {
+                                navController.popBackStack()
+                            }
+                        ) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                contentDescription = "Get back",
+                                tint = Color(0xFFE7E7E7)
+                            )
                         }
-                    ) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Get back",
-                            tint = Color(0xFFE7E7E7)
+                    },
+                    title = {
+                        Text(
+                            text = "Add Sentence",
+                            color = Color(0xFFE7E7E7),
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Medium
                         )
-                    }
-                },
-                title = {
-                    Text(
-                        text = "Add Sentence",
-                        color = Color(0xFFE7E7E7),
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Medium
+                    },
+                    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        titleContentColor = MaterialTheme.colorScheme.primary,
                     )
-                },
-                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    titleContentColor = MaterialTheme.colorScheme.primary,
-                )
-            )
-        }
-    ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(innerPadding),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp)
-            ) {
-                OutlinedTextField(
-                    value = nativeText,
-                    onValueChange = {
-                        nativeText = it
-                    },
-                    label = {
-                        Text(text = "Native Sentence")
-                    },
-                    modifier = Modifier.fillMaxWidth()
                 )
             }
-            Box(
+        ) { innerPadding ->
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(8.dp)
+                    .padding(innerPadding),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                OutlinedTextField(
-                    value = foreignText,
-                    onValueChange = {
-                        foreignText = it
-                    },
-                    label = {
-                        Text(text = "Foreign Sentence")
-                    },
-                    modifier = Modifier.fillMaxWidth()
-
-                )
-            }
-            Button(
-                onClick = {
-                    viewModel.addSentence(nativeText, foreignText)
-                    nativeText = ""
-                    foreignText = ""
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp)
+                ) {
+                    OutlinedTextField(
+                        value = nativeText,
+                        onValueChange = {
+                            nativeText = it
+                        },
+                        label = {
+                            Text(text = "Native Sentence")
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    )
                 }
-            ) {
-                Text(
-                    text = "Add",
-                    style = TextStyle(
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Medium
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp)
+                ) {
+                    OutlinedTextField(
+                        value = foreignText,
+                        onValueChange = {
+                            foreignText = it
+                        },
+                        label = {
+                            Text(text = "Foreign Sentence")
+                        },
+                        modifier = Modifier.fillMaxWidth()
+
                     )
-                )
+                }
+                Button(
+                    onClick = {
+                        viewModel.addSentence(nativeText, foreignText)
+                        nativeText = ""
+                        foreignText = ""
+                    }
+                ) {
+                    Text(
+                        text = "Add",
+                        style = TextStyle(
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Medium
+                        )
+                    )
+                }
             }
         }
     }
-
 }
